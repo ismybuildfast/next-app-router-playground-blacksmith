@@ -88,7 +88,7 @@ jobs:
         id: deploy
         run: |
           DEPLOY_START=$(date +%s)
-          vercel deploy --prebuilt --prod --yes --token=${{ secrets.VERCEL_TOKEN }} 2>&1
+          vercel deploy --prebuilt --prod --yes --archive=tgz --token=${{ secrets.VERCEL_TOKEN }} 2>&1
           DEPLOY_END=$(date +%s)
           echo "deploy_end=$DEPLOY_END" >> $GITHUB_OUTPUT
         env:
@@ -195,7 +195,7 @@ jobs:
         id: deploy_incr
         run: |
           DEPLOY_START=$(date +%s)
-          vercel deploy --prebuilt --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+          vercel deploy --prebuilt --prod --yes --archive=tgz --token=${{ secrets.VERCEL_TOKEN }}
           DEPLOY_END=$(date +%s)
           echo "deploy_end=$DEPLOY_END" >> $GITHUB_OUTPUT
         env:
@@ -240,7 +240,7 @@ jobs:
           cat .vercel/output/static/bench-incremental.txt
 
       - name: Final deploy with updated bench files
-        run: vercel deploy --prebuilt --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prebuilt --prod --yes --archive=tgz --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
